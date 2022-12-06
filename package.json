@@ -1,6 +1,6 @@
 {
   "name": "mh_date_picker",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
@@ -42,14 +42,16 @@
     "@babel/cli": "^7.19.3",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
-    "cross-env": "^7.0.3",
+    "cross-env": "^7.0.3"
+  },
+  "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1"
   },
-  "main": "dist/index.js",
+  "main": "dist/InputDate/InputDate.js",
   "private": false,
-  "module": "dist/index.js",
+  "module": "dist/InputDate/InputDate.js",
   "files": [
     "dist",
     "README.md"

@@ -11,6 +11,8 @@ var _reactDetectClickOutside = require("react-detect-click-outside");
 var _luxon = require("luxon");
 var _utils = require("./utils");
 require("./InputDate.scss");
+var _reactFontawesome = require("@fortawesome/react-fontawesome");
+var _freeSolidSvgIcons = require("@fortawesome/free-solid-svg-icons");
 var InputDate = function InputDate(props) {
   var now = props.date;
   var _useState = (0, _react.useState)(false),
@@ -37,12 +39,9 @@ var InputDate = function InputDate(props) {
   var scrollRef = (0, _react.useRef)();
   var months = (0, _utils.getMonths)();
   var _onClick = props.onClick;
-  console.log(now.getMonth());
   var handleAcitveFalse = function handleAcitveFalse() {
     setActive(false);
-    // console.log("toto");
   };
-
   var handleMonth = function handleMonth(i) {
     setDateMonth(i + 1);
     setYearActive(false);
@@ -59,8 +58,6 @@ var InputDate = function InputDate(props) {
   var ref = (0, _reactDetectClickOutside.useDetectClickOutside)({
     onTriggered: handleAcitveFalse
   });
-  console.log(active);
-  // console.log(now.year);
   (0, _react.useEffect)(function () {
     yearActive && scrollRef.current.scrollIntoView();
   }, [yearActive]);
@@ -75,7 +72,10 @@ var InputDate = function InputDate(props) {
     onClick: function onClick() {
       return setActive(true);
     },
-    value: "".concat(dateDay.toString().padStart(2, "0"), "/").concat(dateMonth.toString().padStart(2, "0"), "/").concat(dateYear)
+    value: "".concat(dateDay.toString().padStart(2, "0"), "/").concat(dateMonth.toString().padStart(2, "0"), "/").concat(dateYear),
+    onChange: function onChange() {
+      return console.log("toto");
+    }
   }), active && /*#__PURE__*/React.createElement("div", {
     className: "input_date_open"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
@@ -84,7 +84,9 @@ var InputDate = function InputDate(props) {
     },
     disabled: dateMonth === 1 ? true : false,
     className: "input_date_btn--previous"
-  }, "-"), /*#__PURE__*/React.createElement("button", {
+  }, /*#__PURE__*/React.createElement(_reactFontawesome.FontAwesomeIcon, {
+    icon: _freeSolidSvgIcons.faChevronLeft
+  })), /*#__PURE__*/React.createElement("button", {
     onClick: function onClick() {
       setYearActive(!yearActive);
     },
@@ -95,12 +97,14 @@ var InputDate = function InputDate(props) {
     },
     disabled: dateMonth === 12 ? true : false,
     className: "input_date_btn--next"
-  }, "+")), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement(_reactFontawesome.FontAwesomeIcon, {
+    icon: _freeSolidSvgIcons.faChevronRight
+  }))), /*#__PURE__*/React.createElement("div", {
     className: "input_date_open__days"
   }, countDay.map(function (day, i) {
     return /*#__PURE__*/React.createElement("p", {
       key: i,
-      className: "input_date_open__days--p  ".concat(day === dateDay ? "input_date_open__days--picked" : undefined),
+      className: "  ".concat(day === dateDay ? "input_date_open__days--picked" : "input_date_open__days--p"),
       onClick: function onClick() {
         setDateDay(day);
         _onClick(new Date(dateYear, dateMonth - 1, day).toDateString());
