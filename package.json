@@ -1,17 +1,22 @@
 {
-  "name": "date_picker",
+  "name": "mh_date_picker",
   "version": "0.1.0",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "luxon": "^3.1.1",
+    "react-detect-click-outside": "^1.1.7",
+    "sass": "^1.56.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "clean": "rimraf dist",
-    "compile": "npm run clean && cross-env NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,stories.js,__snapshots__",
-    "build": "react-scripts build",
+    "build": "npm run clean && cross-env NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,stories.js,__snapshots__",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

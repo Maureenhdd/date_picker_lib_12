@@ -5,6 +5,11 @@ import { getYears, getMonths } from "./utils";
 import { useRef } from "react";
 import { useEffect } from "react";
 import "./InputDate.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronRight,
+  faChevronLeft,
+} from "@fortawesome/free-solid-svg-icons";
 
 const InputDate = (props) => {
   const now = props.date;
@@ -17,11 +22,9 @@ const InputDate = (props) => {
   const scrollRef = useRef();
   const months = getMonths();
   const onClick = props.onClick;
-  console.log(now.getMonth());
 
   const handleAcitveFalse = () => {
     setActive(false);
-    // console.log("toto");
   };
 
   const handleMonth = (i) => {
@@ -43,8 +46,7 @@ const InputDate = (props) => {
   }
 
   const ref = useDetectClickOutside({ onTriggered: handleAcitveFalse });
-  console.log(active);
-  // console.log(now.year);
+
   useEffect(() => {
     yearActive && scrollRef.current.scrollIntoView();
   }, [yearActive]);
@@ -57,6 +59,7 @@ const InputDate = (props) => {
         value={`${dateDay.toString().padStart(2, "0")}/${dateMonth
           .toString()
           .padStart(2, "0")}/${dateYear}`}
+        onChange={() => console.log("toto")}
       />
       {active && (
         <div className="input_date_open">
@@ -68,7 +71,7 @@ const InputDate = (props) => {
               disabled={dateMonth === 1 ? true : false}
               className="input_date_btn--previous"
             >
-              -
+              <FontAwesomeIcon icon={faChevronLeft} />
             </button>
             <button
               onClick={() => {
@@ -85,7 +88,7 @@ const InputDate = (props) => {
               disabled={dateMonth === 12 ? true : false}
               className="input_date_btn--next"
             >
-              +
+              <FontAwesomeIcon icon={faChevronRight} />
             </button>
           </div>
 
@@ -93,8 +96,10 @@ const InputDate = (props) => {
             {countDay.map((day, i) => (
               <p
                 key={i}
-                className={`input_date_open__days--p  ${
-                  day === dateDay ? "input_date_open__days--picked" : undefined
+                className={`  ${
+                  day === dateDay
+                    ? "input_date_open__days--picked"
+                    : "input_date_open__days--p"
                 }`}
                 onClick={() => {
                   setDateDay(day);
