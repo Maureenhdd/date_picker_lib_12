@@ -21,10 +21,11 @@ const InputDate = (props) => {
   const years = getYears();
   const scrollRef = useRef();
   const months = getMonths();
-  const onClick = props.onClick;
+  const onClickDate = props.onClick;
 
   const handleAcitveFalse = () => {
     setActive(false);
+    onClickDate(new Date(dateYear, dateMonth - 1, dateDay).toDateString());
   };
 
   const handleMonth = (i) => {
@@ -48,10 +49,10 @@ const InputDate = (props) => {
   const ref = useDetectClickOutside({ onTriggered: handleAcitveFalse });
 
   useEffect(() => {
-    yearActive && scrollRef.current.scrollIntoView();
-  }, [yearActive]);
+    active && yearActive && scrollRef.current.scrollIntoView();
+  }, [yearActive, active]);
   return (
-    <div ref={ref} style={{ margin: 20 }}>
+    <div ref={ref} className="input_date_block" style={{ width: props.width }}>
       <input
         className="input_date"
         type="text"
@@ -59,11 +60,11 @@ const InputDate = (props) => {
         value={`${dateDay.toString().padStart(2, "0")}/${dateMonth
           .toString()
           .padStart(2, "0")}/${dateYear}`}
-        onChange={() => console.log("toto")}
+        // onChange={() => console.log("toto")}
       />
       {active && (
         <div className="input_date_open">
-          <div>
+          <div className="input_date_btn">
             <button
               onClick={() => {
                 setDateMonth(dateMonth - 1);
@@ -77,7 +78,7 @@ const InputDate = (props) => {
               onClick={() => {
                 setYearActive(!yearActive);
               }}
-              className="input_date_current_date--btn"
+              className="input_date_btn--current"
             >
               {dateYear} {pickedMonth}
             </button>
@@ -91,7 +92,6 @@ const InputDate = (props) => {
               <FontAwesomeIcon icon={faChevronRight} />
             </button>
           </div>
-
           <div className="input_date_open__days">
             {countDay.map((day, i) => (
               <p
@@ -103,52 +103,52 @@ const InputDate = (props) => {
                 }`}
                 onClick={() => {
                   setDateDay(day);
-                  onClick(
-                    new Date(dateYear, dateMonth - 1, day).toDateString()
-                  );
                 }}
               >
                 {day}
               </p>
             ))}
           </div>
-          {yearActive && (
-            <ul
-              style={{
-                height: 200,
-                width: 200,
-                backgroundColor: "white",
-                overflow: "auto",
-                position: "absolute",
-                zIndex: 1,
-                top: "50%",
-                left: "50%",
-                // right: 0,
-                transform: "translate(-50%, -50%)",
-              }}
-            >
-              {years.map((li, i) =>
-                li === dateYear ? (
-                  <>
-                    <li key={i} style={{ color: "pink" }} ref={scrollRef}>
-                      {li}
-                    </li>
-                    <ul>
-                      {months.map((month, i) => (
-                        <li key={i} onClick={() => handleMonth(i)}>
-                          {month}
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                ) : (
-                  <li key={i} onClick={() => setDateYear(li)}>
-                    {li}
-                  </li>
-                )
-              )}
-            </ul>
-          )}
+          <ul
+            className={
+              yearActive ? "input_date_year_open" : "input_date_year--closed"
+            }
+          >
+            {years.map((li, i) =>
+              li === dateYear ? (
+                <li
+                  key={i}
+                  className="input_date_year_open--years"
+                  ref={scrollRef}
+                >
+                  {li}
+                  <ul className="input_date_year_open__months--ul">
+                    {months.map((month, i) => (
+                      <li
+                        className="input_date_year_open__months--li"
+                        key={i}
+                        onClick={() => {
+                          handleMonth(i);
+                        }}
+                      >
+                        {month}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ) : (
+                <li
+                  className="input_date_year_open--years"
+                  key={i}
+                  onClick={() => {
+                    setDateYear(li);
+                  }}
+                >
+                  {li}
+                </li>
+              )
+            )}
+          </ul>
         </div>
       )}
     </div>

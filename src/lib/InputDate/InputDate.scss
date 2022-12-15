@@ -1,8 +1,11 @@
+$primary_color: #90d171;
+
 .input_date {
   padding: 10px;
   border-radius: 2px;
   border: solid 1px black;
-  //   background-color: rgb(222, 228, 233);
+  cursor: pointer;
+  width: 100%;
 
   &_open {
     display: flex;
@@ -10,22 +13,19 @@
     align-items: center;
     flex-direction: column;
     background-color: white;
-    width: 300px;
-    // color: "white";
-    padding: 20px;
-    position: relative;
+    width: 340px;
+    position: absolute;
     border-radius: 2px;
     box-shadow: 0px 20px 20px 0px rgb(0 0 0 / 10%);
     &__days {
       display: flex;
       flex-wrap: wrap;
-      // margin-top: 15px;
       align-items: center;
       justify-content: center;
+      padding: 15px;
 
       &--picked {
-        background-color: rgba(6, 167, 248, 0.363);
-        // padding: 2px;
+        background-color: $primary_color;
         border-radius: 50%;
       }
       &--p,
@@ -36,16 +36,76 @@
         text-align: center;
         cursor: pointer;
       }
+
+      &--p {
+        transition: 0.2s;
+
+        &:hover {
+          background-color: lighten($color: $primary_color, $amount: 30%);
+          border-radius: 50%;
+        }
+      }
     }
   }
 
-  &_current_date--btn,
-  &_btn--previous,
-  &_btn--next {
+  &_btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
+    background-color: $primary_color;
+    &--current,
+    &--previous,
+    &--next {
+      background-color: rgba(255, 255, 255, 0);
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      padding: 10px;
+    }
+  }
+
+  &_year_open {
+    height: 250px;
+    width: 250px;
     background-color: white;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    font-size: 20px;
+    overflow: auto;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    padding: 0 0 0 10px;
+    &--years {
+      text-align: center;
+      font-size: 18px;
+    }
+    &--years,
+    &__months--li {
+      padding: 8px;
+      margin: 5px;
+      list-style: none;
+    }
+    &__months {
+      &--ul {
+        display: grid;
+        grid-template-columns: 33% 33% 33%;
+        padding: 0;
+      }
+      &--li {
+        cursor: pointer;
+        padding: 10px;
+        text-align: center;
+        // background-color: lighten($primary_color, 30%);
+        background-color: rgb(231, 231, 232);
+      }
+    }
+  }
+
+  &_year--closed {
+    display: none;
   }
 }

@@ -15,18 +15,18 @@ export const getYears = () => {
 
 export const getMonths = () => {
   const months = [
-    "Janvier",
-    "Fevrier",
+    "Janv.",
+    "Fevr.",
     "Mars",
-    "Avril",
+    "Avr.",
     "Mai",
     "Juin",
-    "Juillet",
+    "Juil.",
     "Aout",
-    "Septembre",
-    "Octobre",
-    "Novembre",
-    "Décembre",
+    "Sept.",
+    "Oct.",
+    "Nov.",
+    "Déc.",
   ];
 
   return months;
