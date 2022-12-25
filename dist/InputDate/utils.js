@@ -17,7 +17,7 @@ var getYears = function getYears() {
 };
 exports.getYears = getYears;
 var getMonths = function getMonths() {
-  var months = ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"];
+  var months = ["Janv.", "Fevr.", "Mars", "Avr.", "Mai", "Juin", "Juil.", "Aout", "Sept.", "Oct.", "Nov.", "Déc."];
   return months;
 };
 exports.getMonths = getMonths;

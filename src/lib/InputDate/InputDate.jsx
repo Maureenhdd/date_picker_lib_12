@@ -25,7 +25,7 @@ const InputDate = (props) => {
 
   const handleAcitveFalse = () => {
     setActive(false);
-    onClickDate(new Date(dateYear, dateMonth - 1, dateDay).toDateString());
+    onClickDate(new Date(dateYear, dateMonth - 1, dateDay));
   };
 
   const handleMonth = (i) => {
@@ -60,12 +60,17 @@ const InputDate = (props) => {
         value={`${dateDay.toString().padStart(2, "0")}/${dateMonth
           .toString()
           .padStart(2, "0")}/${dateYear}`}
-        // onChange={() => console.log("toto")}
+        onChange={() =>
+          `${dateDay.toString().padStart(2, "0")}/${dateMonth
+            .toString()
+            .padStart(2, "0")}/${dateYear}`
+        }
       />
       {active && (
         <div className="input_date_open">
           <div className="input_date_btn">
             <button
+              type="button"
               onClick={() => {
                 setDateMonth(dateMonth - 1);
               }}
@@ -75,14 +80,14 @@ const InputDate = (props) => {
               <FontAwesomeIcon icon={faChevronLeft} />
             </button>
             <button
-              onClick={() => {
-                setYearActive(!yearActive);
-              }}
+              type="button"
+              onClick={() => setYearActive(!yearActive)}
               className="input_date_btn--current"
             >
               {dateYear} {pickedMonth}
             </button>
             <button
+              type="button"
               onClick={() => {
                 setDateMonth(dateMonth + 1);
               }}

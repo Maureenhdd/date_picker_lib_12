@@ -38,9 +38,10 @@ var InputDate = function InputDate(props) {
   var years = (0, _utils.getYears)();
   var scrollRef = (0, _react.useRef)();
   var months = (0, _utils.getMonths)();
-  var _onClick = props.onClick;
+  var onClickDate = props.onClick;
   var handleAcitveFalse = function handleAcitveFalse() {
     setActive(false);
+    onClickDate(new Date(dateYear, dateMonth - 1, dateDay));
   };
   var handleMonth = function handleMonth(i) {
     setDateMonth(i + 1);
@@ -59,12 +60,13 @@ var InputDate = function InputDate(props) {
     onTriggered: handleAcitveFalse
   });
   (0, _react.useEffect)(function () {
-    yearActive && scrollRef.current.scrollIntoView();
-  }, [yearActive]);
+    active && yearActive && scrollRef.current.scrollIntoView();
+  }, [yearActive, active]);
   return /*#__PURE__*/React.createElement("div", {
     ref: ref,
+    className: "input_date_block",
     style: {
-      margin: 20
+      width: props.width
     }
   }, /*#__PURE__*/React.createElement("input", {
     className: "input_date",
@@ -74,11 +76,14 @@ var InputDate = function InputDate(props) {
     },
     value: "".concat(dateDay.toString().padStart(2, "0"), "/").concat(dateMonth.toString().padStart(2, "0"), "/").concat(dateYear),
     onChange: function onChange() {
-      return console.log("toto");
+      return "".concat(dateDay.toString().padStart(2, "0"), "/").concat(dateMonth.toString().padStart(2, "0"), "/").concat(dateYear);
     }
   }), active && /*#__PURE__*/React.createElement("div", {
     className: "input_date_open"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "input_date_btn"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
     onClick: function onClick() {
       setDateMonth(dateMonth - 1);
     },
@@ -87,11 +92,13 @@ var InputDate = function InputDate(props) {
   }, /*#__PURE__*/React.createElement(_reactFontawesome.FontAwesomeIcon, {
     icon: _freeSolidSvgIcons.faChevronLeft
   })), /*#__PURE__*/React.createElement("button", {
+    type: "button",
     onClick: function onClick() {
-      setYearActive(!yearActive);
+      return setYearActive(!yearActive);
     },
-    className: "input_date_current_date--btn"
+    className: "input_date_btn--current"
   }, dateYear, " ", pickedMonth), /*#__PURE__*/React.createElement("button", {
+    type: "button",
     onClick: function onClick() {
       setDateMonth(dateMonth + 1);
     },
@@ -107,40 +114,30 @@ var InputDate = function InputDate(props) {
       className: "  ".concat(day === dateDay ? "input_date_open__days--picked" : "input_date_open__days--p"),
       onClick: function onClick() {
         setDateDay(day);
-        _onClick(new Date(dateYear, dateMonth - 1, day).toDateString());
       }
     }, day);
-  })), yearActive && /*#__PURE__*/React.createElement("ul", {
-    style: {
-      height: 200,
-      width: 200,
-      backgroundColor: "white",
-      overflow: "auto",
-      position: "absolute",
-      zIndex: 1,
-      top: "50%",
-      left: "50%",
-      // right: 0,
-      transform: "translate(-50%, -50%)"
-    }
+  })), /*#__PURE__*/React.createElement("ul", {
+    className: yearActive ? "input_date_year_open" : "input_date_year--closed"
   }, years.map(function (li, i) {
-    return li === dateYear ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("li", {
+    return li === dateYear ? /*#__PURE__*/React.createElement("li", {
       key: i,
-      style: {
-        color: "pink"
-      },
+      className: "input_date_year_open--years",
       ref: scrollRef
-    }, li), /*#__PURE__*/React.createElement("ul", null, months.map(function (month, i) {
+    }, li, /*#__PURE__*/React.createElement("ul", {
+      className: "input_date_year_open__months--ul"
+    }, months.map(function (month, i) {
       return /*#__PURE__*/React.createElement("li", {
+        className: "input_date_year_open__months--li",
         key: i,
         onClick: function onClick() {
-          return handleMonth(i);
+          handleMonth(i);
         }
       }, month);
     }))) : /*#__PURE__*/React.createElement("li", {
+      className: "input_date_year_open--years",
       key: i,
       onClick: function onClick() {
-        return setDateYear(li);
+        setDateYear(li);
       }
     }, li);
   }))));
