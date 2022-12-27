@@ -46,6 +46,11 @@ const InputDate = (props) => {
     countDay.push(i);
   }
 
+  console.log(
+    DateTime.local(dateYear, months.indexOf(pickedMonth) + 1).endOf("month").c
+      .day
+  );
+
   const ref = useDetectClickOutside({ onTriggered: handleAcitveFalse });
 
   useEffect(() => {

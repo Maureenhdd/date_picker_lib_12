@@ -1,6 +1,8 @@
 {
   "name": "mh_date_picker",
-  "version": "0.2.8",
+  "version": "0.3.0",
+  "author": "M Hdd",
+  "description": "lib for full custom date picker for React JS",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
